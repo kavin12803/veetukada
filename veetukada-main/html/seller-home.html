@@ -1,0 +1,403 @@
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Your Products</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* General Styles */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f7fa;
+            color: #333;
+        }
+
+        /* Header Styles */
+        header {
+            background-color: #2d3e50;
+            color: white;
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: relative; /* Allow for absolute positioning of the search box */
+        }
+
+        header h1 {
+            font-size: 28px;
+            font-weight: bold;
+            margin: 0;
+            letter-spacing: 1px;
+        }
+
+        nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+
+        nav ul li {
+            margin-left: 30px;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: white;
+            font-size: 16px;
+            font-weight: 500;
+            padding: 8px 15px;
+            border-radius: 30px;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        nav ul li a:hover {
+            background-color: #3498db;
+            color: #fff;
+        }
+
+        button {
+            padding: 12px 24px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        button:hover {
+            background-color: #2980b9;
+            transform: scale(1.05);
+        }
+
+        /* Search Box */
+        .search-box {
+            position: absolute;
+            top: 80px; /* Move the search box down below the header */
+            right: 120px;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            padding: 10px;
+            border-radius: 30px;
+            display: flex;
+            align-items: center;
+            width: 250px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .search-box input {
+            border: none;
+            outline: none;
+            padding: 5px 10px;
+            width: 100%;
+            font-size: 16px;
+            border-radius: 30px;
+        }
+
+        .search-box button {
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
+            padding: 5px;
+            margin-left: 5px;
+        }
+
+        .search-box button i {
+            color: #3498db;
+            font-size: 18px;
+        }
+
+        /* Product Listing */
+        .product-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+            padding: 40px;
+        }
+
+        .product-card {
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            text-align: center;
+        }
+
+        .product-card img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            transition: transform 0.3s ease;
+        }
+
+        .product-card h3 {
+            font-size: 20px;
+            font-weight: 600;
+            margin: 20px 0;
+        }
+
+        .product-card .price {
+            font-size: 18px;
+            font-weight: 500;
+            color: #27ae60;
+        }
+
+        .product-card .add-to-cart {
+            background-color: #27ae60;
+            border: none;
+            padding: 12px 25px;
+            color: white;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+
+        .product-card .add-to-cart:hover {
+            background-color: #2ecc71;
+        }
+
+        /* Cart Modal */
+        .cart-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            padding: 20px;
+            overflow: auto;
+        }
+
+        .cart-modal > div {
+            background-color: white;
+            padding: 30px;
+            border-radius: 15px;
+            max-width: 600px;
+            width: 100%;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .cart-modal h3 {
+            font-size: 24px;
+            margin-bottom: 15px;
+            color: #2d3e50;
+        }
+
+        .cart-modal .cart-item {
+            display: flex;
+            justify-content: space-between;
+            margin: 12px 0;
+        }
+
+        .cart-modal .total {
+            font-size: 20px;
+            font-weight: 700;
+            margin-top: 20px;
+            color: #27ae60;
+        }
+
+        .cart-modal .checkout-btn {
+            background-color: #3498db;
+            margin-top: 25px;
+            width: 100%;
+            padding: 15px;
+            color: white;
+            font-size: 18px;
+            border-radius: 30px;
+        }
+
+        .cart-modal .checkout-btn:hover {
+            background-color: #2980b9;
+        }
+
+        .cart-modal .close-btn {
+            background-color: #e74c3c;
+            margin-top: 15px;
+            width: 100%;
+            padding: 15px;
+            color: white;
+            font-size: 18px;
+            border-radius: 30px;
+        }
+
+        .cart-modal .close-btn:hover {
+            background-color: #c0392b;
+        }
+
+        .product-card img {
+    width: 100%;          /* Ensure the image takes up the full width of the container */
+    height: 200px;        /* Set a fixed height for uniformity */
+    object-fit: cover;    /* Ensure the image maintains its aspect ratio and fills the space */
+    border-radius: 10px;  /* Keep the rounded corners */
+    transition: transform 0.3s ease; /* Smooth hover effect */
+}
+
+    </style>
+</head>
+
+<body>
+    <!-- Header Section -->
+    <header>
+        <div class="logo">
+            <h1>Veetu Kada</h1>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="seller-home.html">Home</a></li>
+                <li><a href="yourproduct.html">Your Products</a></li>
+                <li><a href="selling.html">Sell Product</a></li>
+                <li><a href="javascript:void(0);" onclick="showCartPopup()">Cart (<span id="cart-count">0</span>)</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Search Box -->
+    <div class="search-box">
+        <input type="text" id="search-input" placeholder="Search Products..." onkeyup="searchProducts()">
+        <button><i class="fa fa-search"></i></button>
+    </div>
+
+    <!-- Product Listing Section -->
+    <main>
+        <h2>New Products</h2>
+        <div id="productList" class="product-list">
+            <!-- Product cards will be displayed here -->
+        </div>
+
+        <button id="sell-product-btn" onclick="location.href='selling.html'">Sell Product</button>
+    </main>
+
+    <!-- Cart Modal (Popup) -->
+    <div id="cart-modal" class="cart-modal" style="display:none;">
+        <div>
+            <h3>Your Cart</h3>
+            <div id="cart-items"></div>
+            <p class="total" id="total-price">Total: ₹0</p>
+            <button class="checkout-btn" onclick="goToPaymentPage()">Proceed to Checkout</button>
+            <button class="close-btn" onclick="closeCartPopup()">Close</button>
+        </div>
+    </div>
+
+    <script>
+        // JavaScript Code
+        let cart = 0 || [];  // Retrieve cart data from localStorage (if available)
+        const products = [
+    {
+        name: 'Smartphone',
+        price: 20000,
+        category: 'electronics',
+        image: 'https://tse3.mm.bing.net/th?id=OIP.ssa4JAZEBz4k7zl7-JCCggHaFj&pid=Api&P=0&h=180' // Replace with the actual image path
+    },
+    {
+        name: 'Graphic T-Shirt',
+        price: 1200,
+        category: 'clothing',
+        image: 'https://lp2.hm.com/hmgoepprod?set=quality%5B79%5D%2Csource%5B%2Fd5%2Fcf%2Fd5cf4a4818cfafed5e91f22979dcbe2d79bd025e.jpg%5D%2Corigin%5Bdam%5D%2Ccategory%5Bmen_tshirtstanks_printed%5D%2Ctype%5BDESCRIPTIVESTILLLIFE%5D%2Cres%5Bm%5D%2Chmver%5B2%5D&call=url[file:/product/main]' // Replace with the actual image path
+    },
+    {
+        name: 'Laptop',
+        price: 50000,
+        category: 'electronics',
+        image: 'https://tse1.mm.bing.net/th?id=OIP.R3sDWRvUKYroXQlLGD6wcQHaHI&pid=Api&P=0&h=180' // Replace with the actual image path
+    },
+    {
+        name: 'Wireless Headphones',
+        price: 3500,
+        category: 'accessories',
+        image: 'https://www.bhphotovideo.com/images/images2500x2500/skullcandy_s6hbgy_374_hesh_2_bluetooth_headphones_1085703.jpg' // Replace with the actual image path
+    }
+];
+
+        // Function to display products on the page
+        function displayProducts(productsToDisplay) {
+    const productList = document.getElementById("productList");
+    productList.innerHTML = '';
+
+    productsToDisplay.forEach(product => {
+        const productCard = document.createElement('div');
+        productCard.classList.add('product-card');
+        productCard.innerHTML = `
+            <img src="${product.image}" alt="${product.name}">
+            <h3>${product.name}</h3>
+            <p class="price">₹${product.price}</p>
+            <button class="add-to-cart" onclick="addToCart('${product.name}', ${product.price})">Add to Cart</button>
+        `;
+        productList.appendChild(productCard);
+    });
+}
+
+
+        // Add product to cart
+        function addToCart(productName, price) {
+            cart.push({ productName, price });
+            document.getElementById("cart-count").textContent = cart.length;  // Update the cart count in the header
+
+            // Store the updated cart in localStorage
+            localStorage.setItem('cart', JSON.stringify(cart));
+
+            updateCart();  // Update the cart modal with the new cart data
+        }
+
+        // Update the cart modal
+        function updateCart() {
+            let cartItems = document.getElementById("cart-items");
+            cartItems.innerHTML = "";
+            let total = 0;
+            cart.forEach(item => {
+                const cartItem = document.createElement("div");
+                cartItem.classList.add("cart-item");
+                cartItem.innerHTML = `<span>${item.productName}</span> <span>₹${item.price}</span>`;
+                cartItems.appendChild(cartItem);
+                total += item.price;
+            });
+            document.getElementById("total-price").textContent = `Total: ₹${total}`;
+        }
+
+        // Show the cart modal
+        function showCartPopup() {
+            document.getElementById("cart-modal").style.display = "block";  // Show the cart modal
+            updateCart();  // Update cart items and total in the modal
+        }
+
+        // Close the cart modal
+        function closeCartPopup() {
+            document.getElementById("cart-modal").style.display = "none";  // Hide the cart modal
+        }
+
+        // Redirect to payment page
+        function goToPaymentPage() {
+            window.location.href = "payment.html";  // Ensure the correct path to the payment page
+        }
+
+        // Search products based on the search query
+        function searchProducts() {
+            const searchQuery = document.getElementById("search-input").value.toLowerCase();
+            const filteredProducts = products.filter(product =>
+                product.name.toLowerCase().includes(searchQuery)
+            );
+            displayProducts(filteredProducts);
+        }
+
+        // Initialize product display
+        displayProducts(products);
+    </script>
+</body>
+
+</html>

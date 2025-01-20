@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Sell Your Product</title>
+    <link rel="stylesheet" href="selling.css">
+</head>
+
+<body>
+    <!-- Header Section -->
+    <header>
+        <div class="logo">
+            <h1>ShopMate</h1>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="seller-home.html">Home</a></li>
+                <li><a href="yourproduct.html">Your Products</a></li>
+                <li><a href="cart.html">Cart (<span id="cart-count">0</span>)</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Sell Product Section -->
+    <main>
+        <h2>Sell Your Product</h2>
+        <form id="sell-product-form">
+            <label for="product-name">Product Name:</label>
+            <input type="text" id="product-name" required>
+
+            <label for="product-price">Price:</label>
+            <input type="number" id="product-price" required>
+
+            <label for="product-category">Category:</label>
+            <select id="product-category" required>
+                <option value="electronics">Electronics</option>
+                <option value="clothing">Clothing</option>
+                <option value="accessories">Accessories</option>
+            </select>
+
+            <button type="submit">Add Product</button>
+        </form>
+
+        <button id="newbutton" onclick="location.href='yourproduct.html'">Back to Your Products</button>
+    </main>
+
+    <script>
+        // JavaScript for Selling Product
+        document.getElementById("sell-product-form").addEventListener("submit", function (e) {
+            e.preventDefault();
+
+            const name = document.getElementById("product-name").value;
+            const price = document.getElementById("product-price").value;
+            const category = document.getElementById("product-category").value;
+
+            const newProduct = {
+                name,
+                price,
+                category
+            };
+
+            // Store the new product in the localStorage for simplicity
+            let products = JSON.parse(localStorage.getItem('products')) || [];
+            products.push(newProduct);
+            localStorage.setItem('products', JSON.stringify(products));
+
+            alert("Product added successfully!");
+            document.getElementById("sell-product-form").reset();
+        });
+    </script>
+</body>
+
+</html>

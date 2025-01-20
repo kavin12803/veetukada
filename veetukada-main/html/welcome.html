@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Welcome to ShopMate</title>
+    <link rel="stylesheet" href="welcome.css">
+</head>
+<body>
+    <div class="welcome-container">
+        <h1>Welcome to Veetu Kada</h1>
+        <p>“The best way to predict the future is to create it.” – Abraham Lincoln</p>
+        <button onclick="window.location.href='index.html'">Go to Shopping</button>
+    </div>
+
+    <script>
+        // Check if user is logged in, otherwise redirect to login page
+        if (!localStorage.getItem("userLoggedIn")) {
+            window.location.href = "login.html";
+        }
+    </script>
+</body>
+</html>

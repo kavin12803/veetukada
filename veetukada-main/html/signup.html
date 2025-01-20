@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Signup</title>
+    <link rel="stylesheet" href="signup.css">
+</head>
+<body>
+    <div class="auth-container">
+        <h1>Create an Account</h1>
+        <form id="signup-form">
+            <div class="input-group">
+                <label for="new-email">Email</label>
+                <input type="email" id="new-email" name="new-email" required>
+            </div>
+            <div class="input-group">
+                <label for="new-password">Password</label>
+                <input type="password" id="new-password" name="new-password" required>
+            </div>
+
+            <!-- User Type Selection -->
+            <div class="input-group">
+                <label>User Type</label>
+                <div class="user-type-options">
+                    <label for="consumer">
+                        <input type="radio" id="consumer" name="user-type" value="consumer" required>
+                        Consumer
+                    </label>
+                    <label for="seller">
+                        <input type="radio" id="seller" name="user-type" value="seller">
+                        Seller
+                    </label>
+                </div>
+            </div>
+
+            <button type="submit">Sign Up</button>
+        </form>
+        <div class="login-link">
+            Already have an account? <a href="login.html">Login</a>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById("signup-form").addEventListener("submit", function(event) {
+            event.preventDefault(); // Prevent page reload on form submission
+
+            // Get the selected user type
+            const userType = document.querySelector('input[name="user-type"]:checked')?.value;
+
+            if (userType) {
+                // Store the user type in localStorage
+                localStorage.setItem("userLoggedIn", "true");
+                localStorage.setItem("userType", userType); // Store user type (consumer or seller)
+
+                // Redirect to the appropriate page based on the user type
+                if (userType === 'consumer') {
+                    window.location.href = "index.html";  // Redirect to consumer home
+                } else if (userType === 'seller') {
+                    window.location.href = "seller-home.html";  // Redirect to seller home
+                }
+            } else {
+                alert('Please select whether you are a Consumer or Seller.');
+            }
+        });
+    </script>
+</body>
+</html>

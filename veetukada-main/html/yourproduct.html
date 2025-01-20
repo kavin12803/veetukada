@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Your Products</title>
+    <style>
+        /* General Styles */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f7fa;
+            color: #333;
+        }
+
+        header {
+            background-color: #2d3e50;
+            color: white;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        h1 {
+            margin: 0;
+        }
+
+        nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+
+        nav ul li {
+            margin-left: 20px;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: white;
+            font-size: 16px;
+            font-weight: 500;
+        }
+
+        /* Product List Styles */
+        .product-list {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            padding: 30px;
+        }
+
+        .product-card {
+            width: 30%;
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            text-align: center;
+            padding: 15px;
+        }
+
+        .product-card img {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+        }
+
+        .product-card h3 {
+            font-size: 18px;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        .product-card .price {
+            font-size: 16px;
+            color: #27ae60;
+            margin: 10px 0;
+        }
+
+        .product-card .status {
+            font-size: 14px;
+            color: #e74c3c;
+            margin-top: 10px;
+        }
+
+        .sold .status {
+            color: #e74c3c;
+        }
+
+        .unsold .status {
+            color: #27ae60;
+        }
+
+        /* Styling for the Sell Product Button */
+        .sell-btn {
+            display: block;
+            background-color: #3498db;
+            color: white;
+            padding: 12px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            margin: 30px auto 0;
+            text-align: center;
+        }
+
+        .product-card img {
+    width: 100%;         /* Ensures the image takes up the full width of the container */
+    height: 300px;       /* Sets a fixed height for uniform image sizes */
+    object-fit: cover;   /* Ensures images maintain their aspect ratio and fill the height */
+    border-radius: 10px; /* Optional: Adds rounded corners for a polished look */
+}
+
+    </style>
+</head>
+
+<body>
+
+    <!-- Header Section -->
+    <header>
+        <div class="logo">
+            <h1>ShopMate</h1>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="seller-home.html">Home</a></li>
+                
+                <li><a href="selling.html">Sell Product</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Your Products Section -->
+    <main>
+        <h2>Your Products</h2>
+        <div class="product-list">
+            <!-- Sold Products Row -->
+            <div class="product-card sold">
+                <img src="https://tse3.mm.bing.net/th?id=OIP.ssa4JAZEBz4k7zl7-JCCggHaFj&pid=Api&P=0&h=180" alt="Smartphone">
+                <h3>Smartphone</h3>
+                <p class="price">₹20,000</p>
+                <p class="status">Sold</p>
+            </div>
+
+            <div class="product-card sold">
+                <img src="https://tse1.mm.bing.net/th?id=OIP.R3sDWRvUKYroXQlLGD6wcQHaHI&pid=Api&P=0&h=180" alt="Laptop">
+                <h3>Laptop</h3>
+                <p class="price">₹50,000</p>
+                <p class="status">Sold</p>
+            </div>
+
+            <div class="product-card sold">
+                <img src="https://www.bhphotovideo.com/images/images2500x2500/skullcandy_s6hbgy_374_hesh_2_bluetooth_headphones_1085703.jpg" alt="Headphones">
+                <h3>Wireless Headphones</h3>
+                <p class="price">₹3,500</p>
+                <p class="status">Sold</p>
+            </div>
+
+            <!-- Unsold Product Row -->
+            <div class="product-card unsold">
+                <img src="https://lp2.hm.com/hmgoepprod?set=quality%5B79%5D%2Csource%5B%2Fd5%2Fcf%2Fd5cf4a4818cfafed5e91f22979dcbe2d79bd025e.jpg%5D%2Corigin%5Bdam%5D%2Ccategory%5Bmen_tshirtstanks_printed%5D%2Ctype%5BDESCRIPTIVESTILLLIFE%5D%2Cres%5Bm%5D%2Chmver%5B2%5D&call=url[file:/product/main]" alt="Graphic T-Shirt">
+                <h3>Graphic T-Shirt</h3>
+                <p class="price">₹1,200</p>
+                <p class="status">Available</p>
+            </div>
+        </div>
+
+        <a href="selling.html" class="sell-btn">Sell Product</a>
+    </main>
+
+</body>
+
+</html>

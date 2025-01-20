@@ -1,0 +1,206 @@
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Online Shopping</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="index.css">
+</head>
+
+<body>
+    <!-- Header Section -->
+    <header>
+        <div class="logo">
+            <h1>Veetu Kada</h1>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="javascript:void(0);" onclick="showHomePage()">Home</a></li>
+                <li><a href="javascript:void(0);" onclick="showCartPopup()">Cart (<span id="cart-count">0</span>)</a></li>
+            </ul>
+        </nav>
+        <div class="header-icons">
+            <span class="icon search-icon" onclick="toggleSearchInput()">
+                <i class="fas fa-search"></i>
+            </span>
+            <span class="icon voice-icon" onclick="voiceSearch()">
+                <i class="fas fa-microphone"></i>
+            </span>
+            <span class="icon photo-icon" onclick="photoSearch()">
+                <i class="fas fa-camera"></i>
+            </span>
+        </div>
+    </header>
+
+    <!-- Search Box and Filters -->
+    <div class="search-filter" id="search-filter">
+        <input type="text" id="search-input" placeholder="Search for products..." oninput="filterProducts()">
+        <select id="category-filter" onchange="filterProducts()">
+            <option value="">All Categories</option>
+            <option value="electronics">Electronics</option>
+            <option value="clothing">Clothing</option>
+            <option value="accessories">Accessories</option>
+        </select>
+    </div>
+
+    <!-- Product Listing -->
+    <main>
+        <section class="product-list" id="productList">
+            <!-- Product cards go here -->
+        </section>
+    </main>
+
+    <!-- Cart Modal (Popup) -->
+    <div id="cart-modal" class="cart-modal">
+        <h3>Your Cart</h3>
+        <div id="cart-items"></div>
+        <p class="total" id="total-price">Total: ₹0</p>
+        <button class="checkout-btn" onclick="goToPaymentPage()">Proceed to Checkout</button>
+        <button class="close-btn" onclick="closeCartPopup()">Close</button>
+    </div>
+
+    <!-- Payment Modal -->
+    <div id="payment-modal" class="payment-modal">
+        <div class="modal-content">
+            <h2>Payment Details</h2>
+            <input type="text" id="card-number" placeholder="Card Number">
+            <input type="text" id="expiry-date" placeholder="Expiry Date">
+            <input type="text" id="cvv" placeholder="CVV">
+            <button class="pay-btn" onclick="processPayment()">Pay Now</button>
+            <button class="close-btn" onclick="closePaymentModal()">Cancel</button>
+        </div>
+    </div>
+
+    <script>
+        // JavaScript code goes here
+        let cart = [];
+        const products = [
+    {
+        name: 'Smartphone',
+        price: 20000,
+        category: 'electronics',
+        image: 'https://tse3.mm.bing.net/th?id=OIP.ssa4JAZEBz4k7zl7-JCCggHaFj&pid=Api&P=0&h=180' // Replace with the actual image path
+    },
+    {
+        name: 'Graphic T-Shirt',
+        price: 1200,
+        category: 'clothing',
+        image: 'https://lp2.hm.com/hmgoepprod?set=quality%5B79%5D%2Csource%5B%2Fd5%2Fcf%2Fd5cf4a4818cfafed5e91f22979dcbe2d79bd025e.jpg%5D%2Corigin%5Bdam%5D%2Ccategory%5Bmen_tshirtstanks_printed%5D%2Ctype%5BDESCRIPTIVESTILLLIFE%5D%2Cres%5Bm%5D%2Chmver%5B2%5D&call=url[file:/product/main]' // Replace with the actual image path
+    },
+    {
+        name: 'Laptop',
+        price: 50000,
+        category: 'electronics',
+        image: 'https://tse1.mm.bing.net/th?id=OIP.R3sDWRvUKYroXQlLGD6wcQHaHI&pid=Api&P=0&h=180' // Replace with the actual image path
+    },
+    {
+        name: 'Wireless Headphones',
+        price: 3500,
+        category: 'accessories',
+        image: 'https://www.bhphotovideo.com/images/images2500x2500/skullcandy_s6hbgy_374_hesh_2_bluetooth_headphones_1085703.jpg' // Replace with the actual image path
+    }
+];
+
+
+        function addToCart(productName, price) {
+            cart.push({ productName, price });
+            document.getElementById("cart-count").textContent = cart.length;
+            updateCart();
+        }
+
+        function updateCart() {
+            let cartItems = document.getElementById("cart-items");
+            cartItems.innerHTML = "";
+            let total = 0;
+            cart.forEach(item => {
+                const cartItem = document.createElement("div");
+                cartItem.classList.add("cart-item");
+                cartItem.innerHTML = `<span>${item.productName}</span> <span>₹${item.price}</span>`;
+                cartItems.appendChild(cartItem);
+                total += item.price;
+            });
+            document.getElementById("total-price").textContent = `Total: ₹${total}`;
+        }
+
+        function showCartPopup() {
+            document.getElementById("cart-modal").style.display = "block";
+        }
+
+        function closeCartPopup() {
+            document.getElementById("cart-modal").style.display = "none";
+        }
+
+        function goToPaymentPage() {
+            closeCartPopup();
+            document.getElementById("payment-modal").style.display = "flex";
+        }
+
+        function closePaymentModal() {
+            document.getElementById("payment-modal").style.display = "none";
+        }
+
+        function processPayment() {
+            alert("Payment Processed Successfully!");
+            closePaymentModal();
+            cart = [];
+            updateCart();
+            document.getElementById("cart-count").textContent = cart.length;
+        }
+
+        function filterProducts() {
+            const searchTerm = document.getElementById("search-input").value.toLowerCase();
+            const selectedCategory = document.getElementById("category-filter").value;
+
+            const filteredProducts = products.filter(product => {
+                const matchesSearch = product.name.toLowerCase().includes(searchTerm);
+                const matchesCategory = selectedCategory ? product.category === selectedCategory : true;
+                return matchesSearch && matchesCategory;
+            });
+
+            displayProducts(filteredProducts);
+        }
+
+        function displayProducts(filteredProducts) {
+    const productList = document.getElementById("productList");
+    productList.innerHTML = '';
+
+    filteredProducts.forEach(product => {
+        const productCard = document.createElement('div');
+        productCard.classList.add('product-card');
+        productCard.setAttribute('data-category', product.category);
+        productCard.innerHTML = `
+            <img src="${product.image}" alt="${product.name}">
+            <h3>${product.name}</h3>
+            <p class="price">₹${product.price}</p>
+            <button class="add-to-cart" onclick="addToCart('${product.name}', ${product.price})">Add to Cart</button>
+        `;
+        productList.appendChild(productCard);
+    });
+}
+
+
+        displayProducts(products);
+
+        function toggleSearchInput() {
+            const searchFilter = document.getElementById("search-filter");
+            searchFilter.style.display = (searchFilter.style.display === "none") ? "block" : "none";
+        }
+
+        function voiceSearch() {
+            alert("Voice search initiated!");
+        }
+
+        function photoSearch() {
+            alert("Photo search initiated!");
+        }
+    </script>
+</body>
+
+</html>

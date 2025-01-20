@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Page</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f7fa;
+            color: #333;
+            text-align: center;
+        }
+
+        h2 {
+            color: #2d3e50;
+            margin-top: 50px;
+        }
+
+        .payment-container {
+            width: 100%;
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .payment-container form input,
+        .payment-container form select,
+        .payment-container form button {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .payment-container form button {
+            background-color: #3498db;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .payment-container form button:hover {
+            background-color: #2980b9;
+        }
+
+        .back-to-shop {
+            display: inline-block;
+            margin-top: 20px;
+            text-decoration: none;
+            background-color: #e74c3c;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+
+        .back-to-shop:hover {
+            background-color: #c0392b;
+        }
+    </style>
+</head>
+
+<body>
+    <h2>Complete Your Payment</h2>
+
+    <div class="payment-container">
+        <h3>Payment Information</h3>
+        <form class="payment-form">
+            <input type="text" placeholder="Card Number" required>
+
+            <div>
+                <input type="text" placeholder="Expiry Date (MM/YY)" required>
+                <input type="text" placeholder="CVV" required>
+            </div>
+
+            <input type="text" placeholder="Billing Address" required>
+
+            <select required>
+                <option value="" disabled selected>Select Payment Method</option>
+                <option value="credit-card">Credit Card</option>
+                <option value="paypal">PayPal</option>
+                <option value="bank-transfer">Bank Transfer</option>
+            </select>
+
+            <button type="submit">Pay ₹XXXX</button>
+        </form>
+
+        <a href="seller-home.html" class="back-to-shop">Back to Shop</a>
+    </div>
+
+</body>
+
+</html>
+window.location.href = "pages/payment.html";

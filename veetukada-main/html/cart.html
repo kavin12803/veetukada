@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Your Cart</title>
+    <link rel="stylesheet" href="cart.css">
+</head>
+
+<body>
+    <!-- Header Section -->
+    <header>
+        <div class="logo">
+            <h1>ShopMate</h1>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="seller-home.html">Home</a></li>
+                <li><a href="seller-html.html">Your Products</a></li>
+                <li><a href="your-product.html">Sell Product</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Cart Section -->
+    <main>
+        <h2>Your Cart</h2>
+        <div id="cart-items"></div>
+        <p class="total" id="total-price">Total: ₹0</p>
+        <button class="checkout-btn" onclick="goToPaymentPage()">Proceed to Checkout</button>
+        <button class="close-btn" onclick="goBack()">Go Back</button>
+    </main>
+
+    <script>
+        // JavaScript Code for Cart Page
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+        // Function to display cart items
+        function displayCart() {
+            const cartItems = document.getElementById("cart-items");
+            cartItems.innerHTML = "";
+            let total = 0;
+
+            cart.forEach(item => {
+                const cartItem = document.createElement("div");
+                cartItem.classList.add("cart-item");
+                cartItem.innerHTML = `<span>${item.productName}</span> <span>₹${item.price}</span>`;
+                cartItems.appendChild(cartItem);
+                total += item.price;
+            });
+
+            document.getElementById("total-price").textContent = `Total: ₹${total}`;
+        }
+
+        // Go to payment page
+        function goToPaymentPage() {
+            alert("Redirecting to Payment Page...");
+            // Here you would redirect to a real payment gateway or payment process page
+        }
+
+        // Go back to previous page
+        function goBack() {
+            window.history.back();
+        }
+
+        // Initialize cart page
+        displayCart();
+    </script>
+</body>
+
+</html>
